@@ -79,26 +79,36 @@ const SnakeGame = () => {
   }, [score, highScore]);
 
   // Generate random position that doesn't collide with snake or obstacles
-  const generateRandomPosition = useCallback(() => {
+  const generateRandomPosition = useCallback((currentSnake = snake, currentObstacles = obstacles) => {
     let newPos;
+    let attempts = 0;
+    const maxAttempts = 100; // Prevent infinite loops
+    
     do {
       newPos = {
         x: Math.floor(Math.random() * BOARD_SIZE),
         y: Math.floor(Math.random() * BOARD_SIZE)
       };
+      attempts++;
+      
+      if (attempts > maxAttempts) {
+        // Fallback position if we can't find a free space
+        newPos = { x: BOARD_SIZE - 1, y: BOARD_SIZE - 1 };
+        break;
+      }
     } while (
-      snake.some(segment => segment.x === newPos.x && segment.y === newPos.y) ||
-      obstacles.some(obstacle => obstacle.x === newPos.x && obstacle.y === newPos.y)
+      currentSnake.some(segment => segment.x === newPos.x && segment.y === newPos.y) ||
+      currentObstacles.some(obstacle => obstacle.x === newPos.x && obstacle.y === newPos.y)
     );
     return newPos;
   }, [snake, obstacles]);
 
   // Generate new food
-  const generateFood = useCallback(() => {
+  const generateFood = useCallback((currentSnake = snake, currentObstacles = obstacles) => {
     const randomFruit = FRUITS[Math.floor(Math.random() * FRUITS.length)];
-    const position = generateRandomPosition();
+    const position = generateRandomPosition(currentSnake, currentObstacles);
     setFood({ ...position, ...randomFruit });
-  }, [generateRandomPosition]);
+  }, [generateRandomPosition, snake, obstacles]);
 
   // Generate obstacle
   const generateObstacle = useCallback(() => {
