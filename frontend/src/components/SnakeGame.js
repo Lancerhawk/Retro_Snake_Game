@@ -290,7 +290,11 @@ const SnakeGame = () => {
               const pointMultiplier = activePowerUp?.type === 'double_points' ? 2 : 1;
               setScore(prev => prev + food.points * pointMultiplier);
               playSound('eat');
-              generateFood();
+              
+              // Generate new food with current snake state
+              const randomFruit = FRUITS[Math.floor(Math.random() * FRUITS.length)];
+              const position = generateRandomPosition(newSnake, obstacles);
+              setFood({ ...position, ...randomFruit });
               
               // Increase speed slightly
               setGameSpeed(prev => Math.max(prev - 2, 50));
