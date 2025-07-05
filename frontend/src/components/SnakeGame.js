@@ -330,12 +330,15 @@ const SnakeGame = () => {
 
       // Random obstacle generation (only if snake is moving)
       if ((direction.x !== 0 || direction.y !== 0) && Math.random() < DIFFICULTY_SETTINGS[difficulty].obstacleFrequency) {
-        generateObstacle();
+        const position = generateRandomPosition(snake, obstacles);
+        setObstacles(prev => [...prev, { ...position, id: Date.now() }]);
       }
 
       // Random power-up generation (only if snake is moving)
       if ((direction.x !== 0 || direction.y !== 0) && Math.random() < DIFFICULTY_SETTINGS[difficulty].powerUpFrequency) {
-        generatePowerUp();
+        const randomPowerUp = POWER_UPS[Math.floor(Math.random() * POWER_UPS.length)];
+        const position = generateRandomPosition(snake, obstacles);
+        setPowerUps(prev => [...prev, { ...position, ...randomPowerUp, id: Date.now() }]);
       }
 
       gameLoopRef.current = requestAnimationFrame(gameLoop);
