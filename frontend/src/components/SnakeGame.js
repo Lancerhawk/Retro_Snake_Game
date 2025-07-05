@@ -239,85 +239,88 @@ const SnakeGame = () => {
       const currentSpeed = activePowerUp?.type === 'slow_motion' ? gameSpeed * 2 : gameSpeed;
 
       if (timeSinceLastMove >= currentSpeed) {
-        setSnake(prevSnake => {
-          const newSnake = [...prevSnake];
-          const head = { ...newSnake[0] };
-          
-          head.x += direction.x;
-          head.y += direction.y;
-
-          // Check wall collision
-          if (head.x < 0 || head.x >= BOARD_SIZE || head.y < 0 || head.y >= BOARD_SIZE) {
-            playSound('gameOver');
-            setGameState('gameOver');
-            return prevSnake;
-          }
-
-          // Check self collision
-          if (newSnake.some(segment => segment.x === head.x && segment.y === head.y)) {
-            if (activePowerUp?.type !== 'invincibility') {
-              playSound('gameOver');
-              setGameState('gameOver');
-              return prevSnake;
-            }
-          }
-
-          // Check obstacle collision
-          if (obstacles.some(obstacle => obstacle.x === head.x && obstacle.y === head.y)) {
-            if (activePowerUp?.type !== 'invincibility') {
-              playSound('gameOver');
-              setGameState('gameOver');
-              return prevSnake;
-            }
-          }
-
-          newSnake.unshift(head);
-
-          // Check food collision
-          if (head.x === food.x && head.y === food.y) {
-            const pointMultiplier = activePowerUp?.type === 'double_points' ? 2 : 1;
-            setScore(prev => prev + food.points * pointMultiplier);
-            playSound('eat');
-            generateFood();
+        // Only move if direction is set (not 0,0)
+        if (direction.x !== 0 || direction.y !== 0) {
+          setSnake(prevSnake => {
+            const newSnake = [...prevSnake];
+            const head = { ...newSnake[0] };
             
-            // Increase speed slightly
-            setGameSpeed(prev => Math.max(prev - 2, 50));
-          } else {
-            newSnake.pop();
-          }
+            head.x += direction.x;
+            head.y += direction.y;
 
-          // Check power-up collision
-          const powerUpIndex = powerUps.findIndex(powerUp => powerUp.x === head.x && powerUp.y === head.y);
-          if (powerUpIndex !== -1) {
-            const powerUp = powerUps[powerUpIndex];
-            setPowerUps(prev => prev.filter((_, index) => index !== powerUpIndex));
-            setActivePowerUp(powerUp);
-            playSound('powerUp');
-
-            // Clear existing timeout
-            if (powerUpTimeoutRef.current) {
-              clearTimeout(powerUpTimeoutRef.current);
+            // Check wall collision
+            if (head.x < 0 || head.x >= BOARD_SIZE || head.y < 0 || head.y >= BOARD_SIZE) {
+              playSound('gameOver');
+              setGameState('gameOver');
+              return prevSnake;
             }
 
-            // Set new timeout
-            powerUpTimeoutRef.current = setTimeout(() => {
-              setActivePowerUp(null);
-            }, powerUp.duration);
-          }
+            // Check self collision
+            if (newSnake.some(segment => segment.x === head.x && segment.y === head.y)) {
+              if (activePowerUp?.type !== 'invincibility') {
+                playSound('gameOver');
+                setGameState('gameOver');
+                return prevSnake;
+              }
+            }
 
-          return newSnake;
-        });
+            // Check obstacle collision
+            if (obstacles.some(obstacle => obstacle.x === head.x && obstacle.y === head.y)) {
+              if (activePowerUp?.type !== 'invincibility') {
+                playSound('gameOver');
+                setGameState('gameOver');
+                return prevSnake;
+              }
+            }
+
+            newSnake.unshift(head);
+
+            // Check food collision
+            if (head.x === food.x && head.y === food.y) {
+              const pointMultiplier = activePowerUp?.type === 'double_points' ? 2 : 1;
+              setScore(prev => prev + food.points * pointMultiplier);
+              playSound('eat');
+              generateFood();
+              
+              // Increase speed slightly
+              setGameSpeed(prev => Math.max(prev - 2, 50));
+            } else {
+              newSnake.pop();
+            }
+
+            // Check power-up collision
+            const powerUpIndex = powerUps.findIndex(powerUp => powerUp.x === head.x && powerUp.y === head.y);
+            if (powerUpIndex !== -1) {
+              const powerUp = powerUps[powerUpIndex];
+              setPowerUps(prev => prev.filter((_, index) => index !== powerUpIndex));
+              setActivePowerUp(powerUp);
+              playSound('powerUp');
+
+              // Clear existing timeout
+              if (powerUpTimeoutRef.current) {
+                clearTimeout(powerUpTimeoutRef.current);
+              }
+
+              // Set new timeout
+              powerUpTimeoutRef.current = setTimeout(() => {
+                setActivePowerUp(null);
+              }, powerUp.duration);
+            }
+
+            return newSnake;
+          });
+        }
 
         lastMoveTimeRef.current = currentTime;
       }
 
-      // Random obstacle generation
-      if (Math.random() < DIFFICULTY_SETTINGS[difficulty].obstacleFrequency) {
+      // Random obstacle generation (only if snake is moving)
+      if ((direction.x !== 0 || direction.y !== 0) && Math.random() < DIFFICULTY_SETTINGS[difficulty].obstacleFrequency) {
         generateObstacle();
       }
 
-      // Random power-up generation
-      if (Math.random() < DIFFICULTY_SETTINGS[difficulty].powerUpFrequency) {
+      // Random power-up generation (only if snake is moving)
+      if ((direction.x !== 0 || direction.y !== 0) && Math.random() < DIFFICULTY_SETTINGS[difficulty].powerUpFrequency) {
         generatePowerUp();
       }
 
