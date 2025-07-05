@@ -119,6 +119,16 @@ const GameBoard = ({
             </div>
           </div>
         )}
+        
+        {!isPaused && snake.length === 1 && (
+          <div className="start-overlay">
+            <div className="start-message">
+              <h2>🎮 READY TO PLAY</h2>
+              <p>Use Arrow Keys or WASD to start</p>
+              <p className="mobile-hint">👆 Swipe to move on mobile</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
