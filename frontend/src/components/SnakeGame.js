@@ -111,17 +111,17 @@ const SnakeGame = () => {
   }, [generateRandomPosition, snake, obstacles]);
 
   // Generate obstacle
-  const generateObstacle = useCallback(() => {
-    const position = generateRandomPosition();
+  const generateObstacle = useCallback((currentSnake = snake, currentObstacles = obstacles) => {
+    const position = generateRandomPosition(currentSnake, currentObstacles);
     setObstacles(prev => [...prev, { ...position, id: Date.now() }]);
-  }, [generateRandomPosition]);
+  }, [generateRandomPosition, snake, obstacles]);
 
   // Generate power-up
-  const generatePowerUp = useCallback(() => {
+  const generatePowerUp = useCallback((currentSnake = snake, currentObstacles = obstacles) => {
     const randomPowerUp = POWER_UPS[Math.floor(Math.random() * POWER_UPS.length)];
-    const position = generateRandomPosition();
+    const position = generateRandomPosition(currentSnake, currentObstacles);
     setPowerUps(prev => [...prev, { ...position, ...randomPowerUp, id: Date.now() }]);
-  }, [generateRandomPosition]);
+  }, [generateRandomPosition, snake, obstacles]);
 
   // Play sound effect
   const playSound = useCallback((type) => {
