@@ -351,7 +351,7 @@ const SnakeGame = () => {
         cancelAnimationFrame(gameLoopRef.current);
       }
     };
-  }, [gameState, direction, food, obstacles, powerUps, activePowerUp, gameSpeed, difficulty, generateFood, generateObstacle, generatePowerUp, playSound]);
+  }, [gameState, direction, food, obstacles, powerUps, activePowerUp, gameSpeed, difficulty, snake, generateRandomPosition, playSound]);
 
   // Start new game
   const startNewGame = useCallback((selectedDifficulty) => {
