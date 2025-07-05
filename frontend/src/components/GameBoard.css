@@ -1,0 +1,292 @@
+.game-board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.game-board {
+  position: relative;
+  background: linear-gradient(135deg, #000 0%, #111 100%);
+  border: 4px solid #00ff00;
+  border-radius: 8px;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 0, 0.5),
+    inset 0 0 20px rgba(0, 255, 0, 0.1);
+  animation: borderGlow 2s ease-in-out infinite alternate;
+}
+
+.game-board.paused {
+  filter: blur(2px);
+}
+
+.game-cell {
+  position: absolute;
+  border: 1px solid rgba(0, 255, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.1s ease;
+}
+
+/* Snake styles */
+.snake-head {
+  background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+  border: 2px solid #00ff00;
+  border-radius: 4px;
+  box-shadow: 
+    0 0 10px rgba(0, 255, 0, 0.5),
+    inset 0 0 5px rgba(255, 255, 255, 0.2);
+  animation: snakeHeadPulse 0.5s ease-in-out infinite alternate;
+  z-index: 10;
+}
+
+.snake-body {
+  background: linear-gradient(135deg, #00cc00 0%, #009900 100%);
+  border: 1px solid #00ff00;
+  border-radius: 2px;
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1);
+  z-index: 5;
+}
+
+.snake-head.invincible,
+.snake-body.invincible {
+  background: linear-gradient(135deg, #ffff00 0%, #ffcc00 100%);
+  border-color: #ffff00;
+  box-shadow: 
+    0 0 15px rgba(255, 255, 0, 0.8),
+    inset 0 0 5px rgba(255, 255, 255, 0.3);
+  animation: invincibilityFlash 0.3s ease-in-out infinite alternate;
+}
+
+/* Food styles */
+.food {
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.3),
+    inset 0 0 5px rgba(255, 255, 255, 0.2);
+  animation: foodPulse 1s ease-in-out infinite alternate;
+  z-index: 8;
+}
+
+/* Obstacle styles */
+.obstacle {
+  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+  border: 2px solid #ff0000;
+  border-radius: 2px;
+  box-shadow: 
+    0 0 8px rgba(255, 0, 0, 0.5),
+    inset 0 0 5px rgba(255, 255, 255, 0.1);
+  animation: obstacleGlow 1.5s ease-in-out infinite alternate;
+  z-index: 7;
+}
+
+/* Power-up styles */
+.power-up {
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 
+    0 0 15px rgba(255, 255, 255, 0.5),
+    inset 0 0 8px rgba(255, 255, 255, 0.3);
+  animation: powerUpSpin 2s linear infinite;
+  z-index: 9;
+}
+
+/* Pause overlay */
+.pause-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+.pause-message {
+  text-align: center;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+}
+
+.pause-message h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #00ff00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.pause-message p {
+  font-size: 1.2rem;
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* Animations */
+@keyframes borderGlow {
+  0% {
+    border-color: #00ff00;
+    box-shadow: 
+      0 0 20px rgba(0, 255, 0, 0.5),
+      inset 0 0 20px rgba(0, 255, 0, 0.1);
+  }
+  100% {
+    border-color: #00cc00;
+    box-shadow: 
+      0 0 30px rgba(0, 255, 0, 0.8),
+      inset 0 0 30px rgba(0, 255, 0, 0.2);
+  }
+}
+
+@keyframes snakeHeadPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 
+      0 0 10px rgba(0, 255, 0, 0.5),
+      inset 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    transform: scale(1.1);
+    box-shadow: 
+      0 0 15px rgba(0, 255, 0, 0.8),
+      inset 0 0 8px rgba(255, 255, 255, 0.3);
+  }
+}
+
+@keyframes invincibilityFlash {
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes foodPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.3),
+      inset 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    transform: scale(1.2);
+    box-shadow: 
+      0 0 15px rgba(255, 255, 255, 0.6),
+      inset 0 0 8px rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes obstacleGlow {
+  0% {
+    box-shadow: 
+      0 0 8px rgba(255, 0, 0, 0.5),
+      inset 0 0 5px rgba(255, 255, 255, 0.1);
+  }
+  100% {
+    box-shadow: 
+      0 0 15px rgba(255, 0, 0, 0.8),
+      inset 0 0 8px rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes powerUpSpin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .game-board {
+    border-width: 3px;
+  }
+  
+  .game-cell {
+    font-size: 14px;
+  }
+  
+  .snake-head,
+  .snake-body {
+    border-width: 1px;
+  }
+  
+  .food,
+  .obstacle,
+  .power-up {
+    border-width: 1px;
+  }
+  
+  .pause-message h2 {
+    font-size: 1.5rem;
+  }
+  
+  .pause-message p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-board {
+    border-width: 2px;
+  }
+  
+  .game-cell {
+    font-size: 12px;
+  }
+  
+  .pause-message h2 {
+    font-size: 1.2rem;
+  }
+  
+  .pause-message p {
+    font-size: 0.9rem;
+  }
+}
+
+/* High contrast mode for better visibility */
+@media (prefers-contrast: high) {
+  .game-board {
+    border-width: 3px;
+  }
+  
+  .snake-head,
+  .snake-body,
+  .food,
+  .obstacle,
+  .power-up {
+    border-width: 2px;
+  }
+  
+  .game-cell {
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .game-board,
+  .snake-head,
+  .food,
+  .obstacle,
+  .power-up {
+    animation: none;
+  }
+  
+  .game-cell {
+    transition: none;
+  }
+}

@@ -1,0 +1,326 @@
+.game-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  font-family: 'Courier New', monospace;
+  color: #fff;
+  padding: 20px;
+}
+
+.instructions-screen {
+  padding: 20px;
+  max-width: 800px;
+}
+
+.menu-container {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.game-title {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 
+    0 0 10px rgba(0, 255, 0, 0.5),
+    0 0 20px rgba(0, 255, 0, 0.3),
+    0 0 30px rgba(0, 255, 0, 0.2);
+  animation: glow 2s ease-in-out infinite alternate;
+  letter-spacing: 0.1em;
+}
+
+.title-snake,
+.title-apple {
+  font-size: 3rem;
+  margin: 0 20px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.title-snake {
+  animation-delay: 0.5s;
+}
+
+.title-apple {
+  animation-delay: 1s;
+}
+
+.high-score-display {
+  margin-bottom: 40px;
+  padding: 15px 30px;
+  background: rgba(0, 255, 0, 0.1);
+  border: 2px solid rgba(0, 255, 0, 0.3);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.high-score-label {
+  font-size: 1.2rem;
+  margin-right: 10px;
+  color: #00ff00;
+}
+
+.high-score-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffff00;
+  text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.difficulty-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #00ff00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.difficulty-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.difficulty-button {
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 0, 0.05));
+  border: 2px solid rgba(0, 255, 0, 0.3);
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.difficulty-button:hover {
+  background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 0, 0.1));
+  border-color: rgba(0, 255, 0, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+}
+
+.difficulty-button.easy {
+  border-color: rgba(0, 255, 0, 0.3);
+}
+
+.difficulty-button.medium {
+  border-color: rgba(255, 255, 0, 0.3);
+}
+
+.difficulty-button.hard {
+  border-color: rgba(255, 0, 0, 0.3);
+}
+
+.difficulty-button.easy:hover {
+  border-color: rgba(0, 255, 0, 0.8);
+  box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+}
+
+.difficulty-button.medium:hover {
+  border-color: rgba(255, 255, 0, 0.8);
+  box-shadow: 0 5px 15px rgba(255, 255, 0, 0.3);
+}
+
+.difficulty-button.hard:hover {
+  border-color: rgba(255, 0, 0, 0.8);
+  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+}
+
+.difficulty-label {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.difficulty-desc {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.menu-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.menu-button {
+  padding: 15px 30px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.menu-button:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.back-button {
+  margin-top: 20px;
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.1));
+  border-color: rgba(255, 0, 0, 0.5);
+}
+
+.back-button:hover {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.3), rgba(255, 0, 0, 0.2));
+  border-color: rgba(255, 0, 0, 0.8);
+  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+}
+
+.sound-toggle {
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 255, 255, 0.05));
+  border-color: rgba(0, 255, 255, 0.3);
+}
+
+.sound-toggle:hover {
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 255, 0.1));
+  border-color: rgba(0, 255, 255, 0.6);
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+}
+
+.menu-footer {
+  margin-top: 40px;
+  opacity: 0.6;
+  font-size: 0.9rem;
+}
+
+.menu-footer p {
+  margin: 0;
+}
+
+/* Instructions Screen */
+.instructions-content {
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.instruction-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(0, 255, 0, 0.05);
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+
+.instruction-section h3 {
+  color: #00ff00;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.instruction-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.instruction-section li {
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.instruction-section li::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  color: #00ff00;
+}
+
+.fruit, .power-up {
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .game-title {
+    font-size: 2.5rem;
+  }
+  
+  .title-snake,
+  .title-apple {
+    font-size: 2rem;
+    margin: 0 10px;
+  }
+  
+  .menu-container {
+    padding: 0 10px;
+  }
+  
+  .difficulty-buttons {
+    gap: 10px;
+  }
+  
+  .difficulty-button {
+    padding: 15px;
+    font-size: 1rem;
+  }
+  
+  .menu-button {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+  
+  .instructions-content {
+    padding: 0 10px;
+  }
+  
+  .instruction-section {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-title {
+    font-size: 2rem;
+  }
+  
+  .title-snake,
+  .title-apple {
+    font-size: 1.5rem;
+    margin: 0 5px;
+  }
+  
+  .high-score-display {
+    padding: 10px 20px;
+  }
+  
+  .high-score-value {
+    font-size: 1.5rem;
+  }
+  
+  .difficulty-button {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .menu-button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+}

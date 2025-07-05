@@ -1,0 +1,335 @@
+.game-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+  border: 2px solid rgba(0, 255, 0, 0.3);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 0, 0.2),
+    inset 0 0 20px rgba(0, 255, 0, 0.05);
+  font-family: 'Courier New', monospace;
+}
+
+.hud-left,
+.hud-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hud-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Score displays */
+.score-display,
+.high-score-display,
+.difficulty-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.score-label,
+.high-score-label,
+.difficulty-label {
+  font-size: 0.8rem;
+  color: #00ff00;
+  margin-bottom: 2px;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.score-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.high-score-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffff00;
+  text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+}
+
+.difficulty-value {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ff00ff;
+  text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+/* Power-up display */
+.power-up-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  animation: powerUpGlow 1s ease-in-out infinite alternate;
+}
+
+.power-up-icon {
+  font-size: 1.5rem;
+  animation: powerUpBounce 0.5s ease-in-out infinite alternate;
+}
+
+.power-up-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.power-up-name {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.power-up-timer {
+  width: 60px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.timer-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00ff00 0%, #ffff00 50%, #ff0000 100%);
+  border-radius: 2px;
+  animation: timerCountdown linear;
+  transform-origin: left;
+}
+
+/* HUD buttons */
+.hud-button {
+  padding: 10px 15px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hud-button:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.pause-button {
+  background: linear-gradient(135deg, rgba(255, 255, 0, 0.2) 0%, rgba(255, 255, 0, 0.1) 100%);
+  border-color: rgba(255, 255, 0, 0.5);
+}
+
+.pause-button:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 0, 0.3) 0%, rgba(255, 255, 0, 0.2) 100%);
+  border-color: rgba(255, 255, 0, 0.8);
+  box-shadow: 0 5px 15px rgba(255, 255, 0, 0.3);
+}
+
+.quit-button {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.2) 0%, rgba(255, 0, 0, 0.1) 100%);
+  border-color: rgba(255, 0, 0, 0.5);
+}
+
+.quit-button:hover {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.3) 0%, rgba(255, 0, 0, 0.2) 100%);
+  border-color: rgba(255, 0, 0, 0.8);
+  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+}
+
+/* Animations */
+@keyframes powerUpGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+  }
+}
+
+@keyframes powerUpBounce {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes timerCountdown {
+  0% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .game-hud {
+    padding: 10px 15px;
+    max-width: 100%;
+  }
+  
+  .hud-left,
+  .hud-right {
+    gap: 10px;
+  }
+  
+  .score-value {
+    font-size: 1.2rem;
+  }
+  
+  .high-score-value {
+    font-size: 1rem;
+  }
+  
+  .difficulty-value {
+    font-size: 0.9rem;
+  }
+  
+  .power-up-display {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  
+  .power-up-icon {
+    font-size: 1.2rem;
+  }
+  
+  .power-up-name {
+    font-size: 0.8rem;
+  }
+  
+  .power-up-timer {
+    width: 50px;
+  }
+  
+  .hud-button {
+    padding: 8px 12px;
+    font-size: 1rem;
+    min-width: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-hud {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .hud-left,
+  .hud-right {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+  }
+  
+  .hud-center {
+    order: -1;
+  }
+  
+  .score-display,
+  .high-score-display,
+  .difficulty-display {
+    flex-direction: row;
+    gap: 5px;
+  }
+  
+  .score-label,
+  .high-score-label,
+  .difficulty-label {
+    margin-bottom: 0;
+    font-size: 0.7rem;
+  }
+  
+  .score-value {
+    font-size: 1rem;
+  }
+  
+  .high-score-value {
+    font-size: 0.9rem;
+  }
+  
+  .difficulty-value {
+    font-size: 0.8rem;
+  }
+  
+  .power-up-display {
+    padding: 6px 10px;
+    gap: 6px;
+  }
+  
+  .power-up-icon {
+    font-size: 1rem;
+  }
+  
+  .power-up-name {
+    font-size: 0.7rem;
+  }
+  
+  .power-up-timer {
+    width: 40px;
+    height: 3px;
+  }
+  
+  .hud-button {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    min-width: 35px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .game-hud {
+    border-width: 3px;
+  }
+  
+  .power-up-display,
+  .hud-button {
+    border-width: 2px;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .power-up-display,
+  .power-up-icon,
+  .hud-button {
+    animation: none;
+  }
+  
+  .hud-button {
+    transition: none;
+  }
+}
