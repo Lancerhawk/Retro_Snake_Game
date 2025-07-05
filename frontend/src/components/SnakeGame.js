@@ -348,22 +348,30 @@ const SnakeGame = () => {
 
   // Start new game
   const startNewGame = useCallback((selectedDifficulty) => {
+    const newSnake = [{ x: 10, y: 10 }];
+    const newObstacles = [];
+    
     setDifficulty(selectedDifficulty);
-    setSnake([{ x: 10, y: 10 }]);
+    setSnake(newSnake);
     setDirection({ x: 0, y: 0 });
     setScore(0);
-    setObstacles([]);
+    setObstacles(newObstacles);
     setPowerUps([]);
     setActivePowerUp(null);
     setGameSpeed(DIFFICULTY_SETTINGS[selectedDifficulty].speed);
-    generateFood();
+    
+    // Generate food with the new snake position
+    const randomFruit = FRUITS[Math.floor(Math.random() * FRUITS.length)];
+    const position = generateRandomPosition(newSnake, newObstacles);
+    setFood({ ...position, ...randomFruit });
+    
     setGameState('playing');
     lastMoveTimeRef.current = 0;
     
     if (powerUpTimeoutRef.current) {
       clearTimeout(powerUpTimeoutRef.current);
     }
-  }, [generateFood]);
+  }, [generateRandomPosition]);
 
   // Pause/Resume game
   const togglePause = useCallback(() => {
